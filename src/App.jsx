@@ -4,47 +4,46 @@ import { FaSun, FaMoon, FaSearch, FaStar } from 'react-icons/fa';
 import './App.css';
 
 const API_KEY = 'dc106b2801df005fad9a802e149f8b91';
+const API_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 function App() {
   const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  
-  // Geolocation
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      fetchWeatherDataByCoords(latitude, longitude);
+      getWeatherDataByCoords(latitude, longitude);
     });
   }, []);
-  
-  const fetchWeatherDataByCoords = async (lat, lon) => {
+
+  const getWeatherDataByCoords = async (lat, lon) => {
     try {
-      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`);
+      const response = await axios.get(`${API_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`);
       setWeatherData(response.data);
     } catch (error) {
-      console.error('Error fetching the weather data', error);
+      console.log('Error ', error);
     }
   };
 
-  const fetchWeatherData = async (city) => {
+  const getWheatherData = async (city) => {
     try {
-      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`);
+      const response = await axios.get(`${API_URL}?q=${city}&units=metric&appid=${API_KEY}`);
       setWeatherData(response.data);
     } catch (error) {
-      console.error('Error fetching the weather data', error);
+      console.log(error);
+     
       setWeatherData(null);
     }
   };
 
   const handleSearch = () => {
-    if (city) fetchWeatherData(city);
+    if (city) getWheatherData(city);
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+
 
   const addToFavorites = () => {
     if (weatherData && !favorites.includes(weatherData.name)) {
@@ -90,17 +89,17 @@ function App() {
           <div className="mt-4">
             <button
               className="p-4 bg-gray-500 text-white rounded-xl"
-              onClick={toggleDarkMode}
+              onClick={() => setIsDarkMode(!isDarkMode)}
             >
               {isDarkMode ? <FaSun /> : <FaMoon />}
             </button>
           </div>
-          
+
           <div className="mt-6">
             <h3 className="text-xl font-bold dark:text-indigo-600">Favorite Cities</h3>
             <ul className="list-disc list-inside dark:text-yellow-300">
               {favorites.map((favCity, index) => (
-                <li key={index} onClick={() => fetchWeatherData(favCity)} className="cursor-pointer hover:underline">
+                <li key={index} onClick={() => getWheatherData(favCity)} className="cursor-pointer hover:underline">
                   {favCity}
                 </li>
               ))}
