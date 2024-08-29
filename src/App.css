@@ -1,0 +1,25 @@
+.dark .bg-white {
+  /* background-color: #2d3748 !important; */
+  background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);background: linear-gradient(-225deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%);
+}
+
+.dark .text-white {
+  color: #131618 !important;
+}
+
+.dark .bg-gray-100 {
+  /* background-color: #1a202c !important; */
+  background: linear-gradient(-225deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%);}
+
+.dark .bg-gray-900 {
+  background-color: #1a202c !important;
+}
+
+.dark .border-gray-300 {
+  /* border-color: #0d56d3 !important; */
+  background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);background: linear-gradient(-225deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%);
+}
+
+.dark .text-gray-300 {
+  color: #e2e8f0 !important;
+}
